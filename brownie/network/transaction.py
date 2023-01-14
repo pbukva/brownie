@@ -675,7 +675,9 @@ class TransactionReceipt:
                     # handle traces where numeric values are returned as hex (Nethermind)
                     step["gas"] = int(step["gas"], 16)
                     step["gasCost"] = int.from_bytes(HexBytes(step["gasCost"]), "big", signed=True)
-                    step["pc"] = int(step["pc"], 16)
+                    pc = step["pc"]
+                    if isinstance(pc, str):
+                        step["pc"] = int(pc, 16)
 
         if self.status:
             self._confirmed_trace(trace)
