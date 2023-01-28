@@ -678,6 +678,8 @@ class TransactionReceipt:
                     pc = step["pc"]
                     if isinstance(pc, str):
                         step["pc"] = int(pc, 16)
+                    elif not isinstance(pc, int):
+                        raise TypeError("Unexpected type of the 'pc' value ")
 
         if self.status:
             self._confirmed_trace(trace)
